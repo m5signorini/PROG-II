@@ -58,6 +58,9 @@ int main(int argc, char** argv) {
     fprintf(stdout, "Id del primer nodo: %d\n", node_getId(n1));
     fprintf(stdout, "Nombre del segundo nodo: %s\n", node_getName(n2));
     
+    // Destrucción del nodo 2, pues node_copy crea espacio de memoria, se perdería la referencia a n2;
+    node_destroy(n2);
+    
     n2 = node_copy(n1);
     
     node_print(stdout, n1);
