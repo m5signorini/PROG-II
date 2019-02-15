@@ -12,4 +12,6 @@ gcc -o ejecutable main.o node.o
 
 ./ejecutable arg1 arg2
 
-
+ls --Listar
+cd <dir> --Ir
+cd .. --Salir
