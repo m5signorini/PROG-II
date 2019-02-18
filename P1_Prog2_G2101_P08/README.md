@@ -1,2 +1,0 @@
-#PRACTICA 2
-TAD: PILA
