@@ -39,20 +39,12 @@ int main(int argc, char** argv) {
     if(n2 == NULL) main_destroy(EXIT_FAILURE, n1, n2);
     
     // SET NODE 1
-    if(node_setId(n1, 111) == NULL) {
-        main_destroy(EXIT_FAILURE, n1, n2);
-    }
-    if(node_setName(n1, "first") == NULL) {
-        main_destroy(EXIT_FAILURE, n1, n2);
-    }
+    node_setId(n1, 111);
+    node_setName(n1, "first");
     
     // SET NODE 2
-    if(node_setId(n2, 222) == NULL) {
-        main_destroy(EXIT_FAILURE, n1, n2);
-    }
-    if(node_setName(n2, "second") == NULL) {
-        main_destroy(EXIT_FAILURE, n1, n2);
-    }
+    node_setId(n2, 222);
+    node_setName(n2, "second");
     
     // PRINT N1 N2
     aux = node_print(stdout, n1);
@@ -72,9 +64,8 @@ int main(int argc, char** argv) {
     }
     
     // PRINT N1.ID N2.NAME
-    aux = node_getId(n1);
+    aux = fprintf(stdout, "Id del primer nodo: %d\n", node_getId(n1));
     if(aux == -1) main_destroy(EXIT_FAILURE, n1, n2);
-    fprintf(stdout, "Id del primer nodo: %d\n", aux);
     
     aux = fprintf(stdout, "Nombre del segundo nodo: %s\n", node_getName(n2));
     if(aux == -1) main_destroy(EXIT_FAILURE, n1, n2);
