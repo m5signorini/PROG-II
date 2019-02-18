@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     graph_readFromFile(f, g);
     graph_print(stdout, g);
     
-    free(f);
+    fclose(f);
     main_destroy(EXIT_SUCCESS, n1, n2, g);
     return EXIT_FAILURE;
 }
