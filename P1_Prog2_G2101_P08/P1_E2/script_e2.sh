@@ -1,11 +1,16 @@
-# Comentario
-# Archivo .sh run in linux
-#
+# Script
+# Compila y crea ejecutable:
+# p1_e2
+
+#################################
 #! /bin/bash
+gcc -c node.c
+gcc -c graph.c
+gcc -c p1_e2.c
+gcc -o p1_e2 p1_e2.o node.o graph.o
+./p1_e2
+#################################
 
-#gcc -g node.c
-#gcc -g p1_e1.c
-#gcc -o ejecutable p1_e1.o node.o
-gcc -g node.c graph.c p1_e2.c -o ejecutable
-
-valgrind --leak-check=full ./ejecutable
+# Usando valgrind
+gcc -g node.c graph.c p1_e2.c -o p1_e2
+valgrind --leak-check=full ./p1_e2

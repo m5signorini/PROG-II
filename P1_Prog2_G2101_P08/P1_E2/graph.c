@@ -343,7 +343,7 @@ int graph_getNumberOfConnectionsFrom(const Graph * g, const int fromId) {
 int* graph_getConnectionsFrom(const Graph * g, const int fromId) {
     if(g == NULL || fromId < 0) return NULL;
     
-    int index, j, i, numConnect;
+    int index, i, numConnect;
     int * idArray = NULL;
     int * indexArray = NULL;
     
