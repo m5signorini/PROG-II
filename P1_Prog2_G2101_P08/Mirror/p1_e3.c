@@ -19,6 +19,7 @@ int main(int argc, char** argv) {
     Node *n1 = NULL;
     Node *n2 = NULL;
     Graph *g = NULL;
+    Status flag;
     
     FILE *f = NULL;
     
@@ -32,7 +33,12 @@ int main(int argc, char** argv) {
     f = fopen(argv[1], "r");
     if(f == NULL) main_destroy(EXIT_FAILURE, n1, n2, g);
     
-    graph_readFromFile(f, g);
+    flag = graph_readFromFile(f, g);
+    if(flag == ERROR) {
+        fclose(f);
+        main_destroy(EXIT_FAILURE, n1, n2, g);
+    }
+    
     graph_print(stdout, g);
     
     fclose(f);
