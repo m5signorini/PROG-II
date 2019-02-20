@@ -1,6 +1,6 @@
 /*
  * ESTRUCTURA GRAFO
- * 
+ * Nombre: Martín Sánchez
  * 
  * 
  */
