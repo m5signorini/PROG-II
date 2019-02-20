@@ -13,17 +13,17 @@
 extern int errno;
 
 /*
-    -Inicialice dos nodos. El primero con nombre “first” e id 111 y
-     el segundo con nombre “second” e id 222).
-    -Inicialice un grafo.
-    -Insertar el nodo 1 y verifique si la inserción se realizó correctamente
-    -Insertar el nodo 2 y verifique si la inserción se realizó correctamente
-    -Insertar una conexión entre el nodo 2 y el nodo 1.
-    -Comprobar si el nodo 1 está conectado con el nodo 2 (ver mensaje más abajo).
-    -Comprobar si el nodo 2 está conectado con el nodo 1 (ver mensaje más abajo).
-    -Insertar nodo 2 y verificar el resultado.
-    -Imprimir el grafo
-    -Liberar los recursos destruyendo los nodos y el grafo.
+ *  -Inicialice dos nodos. El primero con nombre “first” e id 111 y
+ *   el segundo con nombre “second” e id 222).
+ *  -Inicialice un grafo.
+ *  -Insertar el nodo 1 y verifique si la inserción se realizó correctamente
+ *  -Insertar el nodo 2 y verifique si la inserción se realizó correctamente
+ *  -Insertar una conexión entre el nodo 2 y el nodo 1.
+ *  -Comprobar si el nodo 1 está conectado con el nodo 2 (ver mensaje más abajo).
+ *  -Comprobar si el nodo 2 está conectado con el nodo 1 (ver mensaje más abajo).
+ *  -Insertar nodo 2 y verificar el resultado.
+ *  -Imprimir el grafo
+ *  -Liberar los recursos destruyendo los nodos y el grafo.
  */
 
 void main_destroy(int salida, Node *n1, Node *n2, Graph *pg);
