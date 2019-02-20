@@ -6,8 +6,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 
 #include "node.h"
+
+extern int errno;
 
 /*
  * - Inicializar dos nodos de modo que el primero sea un nodo con nombre “first” e id 111
@@ -51,23 +54,32 @@ int main(int argc, char** argv) {
     
     aux = node_print(stdout, n2);
     if(aux == -1) main_destroy(EXIT_FAILURE, n1, n2);
-    fprintf(stdout, "\n");
     
     /* PRINT COMPARATION */
     aux = node_cmp(n1, n2);
     if(aux == 0) {
-        fprintf(stdout, "Son iguales? SI\n");
+        fprintf(stdout, "\nSon iguales? SI\n");
     }
     else {
-        fprintf(stdout, "Son iguales? NO\n");
+        fprintf(stdout, "\nSon iguales? NO\n");
+    }
+    if(ferror(stdout)) {
+        fprintf(stderr, "Error al imprimir por stdout\n");
+        main_destroy(EXIT_FAILURE, n1, n2);
     }
     
     /* PRINT N1.ID N2.NAME */
-    aux = fprintf(stdout, "Id del primer nodo: %d\n", node_getId(n1));
-    if(aux == -1) main_destroy(EXIT_FAILURE, n1, n2);
+    fprintf(stdout, "Id del primer nodo: %d\n", node_getId(n1));
+    if(ferror(stdout)) {
+        fprintf(stderr, "Error al imprimir por stdout\n");
+        main_destroy(EXIT_FAILURE, n1, n2);
+    }
     
-    aux = fprintf(stdout, "Nombre del segundo nodo: %s\n", node_getName(n2));
-    if(aux == -1) main_destroy(EXIT_FAILURE, n1, n2);
+    fprintf(stdout, "Nombre del segundo nodo: %s\n", node_getName(n2));
+    if(ferror(stdout)) {
+        fprintf(stderr, "Error al imprimir por stdout\n");
+        main_destroy(EXIT_FAILURE, n1, n2);
+    }
     
     /* Destrucción del nodo 2, pues node_copy crea espacio de memoria,
      *  y se perdería la referencia a n2;
@@ -84,14 +96,17 @@ int main(int argc, char** argv) {
     if(aux == -1) main_destroy(EXIT_FAILURE, n1, n2);
     aux = node_print(stdout, n2);
     if(aux == -1) main_destroy(EXIT_FAILURE, n1, n2);
-    fprintf(stdout, "\n");
     
     aux = node_cmp(n1, n2);
     if(aux == 0) {
-        fprintf(stdout, "Son iguales? SI\n");
+        fprintf(stdout, "\nSon iguales? SI\n");
     }
     else {
-        fprintf(stdout, "Son iguales? NO\n");
+        fprintf(stdout, "\nSon iguales? NO\n");
+    }
+    if(ferror(stdout)) {
+        fprintf(stderr, "Error al imprimir por stdout\n");
+        main_destroy(EXIT_FAILURE, n1, n2);
     }
     
     main_destroy(EXIT_SUCCESS, n1, n2);
