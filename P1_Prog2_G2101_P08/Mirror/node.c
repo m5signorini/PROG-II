@@ -1,17 +1,14 @@
 /*
  * 
  * ESTRUCTURA NODE
- * 
- * Últimos Cambios:
- * - Añadido: - Libreria errno.h y variable errno
- * -          - Control de errores
- * - Explicacion: errno se usara tras malloc, read files, print...
+ * Nombre: Martín Sánchez
  * 
  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+
 #include "node.h"
 
 #define MAX_NAME 100
@@ -29,16 +26,16 @@ Node * node_ini() {
     Node *n = NULL;
     
     n = (Node *)malloc(sizeof(Node));
-    // En caso de error se imprimira por stderr
+    /* En caso de error se imprimira por stderr */
     if(n == NULL) {
         fprintf(stderr, "Valor de errno: %d\n", errno);
         fprintf(stderr, "Mensaje de errno: %s\n", strerror(errno));
         return NULL;
     }
     
-    node_setId(n, 0);
+    node_setId(n, -1);
     node_setConnect(n, 0);
-    node_setName(n, "_notNamed");
+    node_setName(n, "");
     
     return n;
 }
@@ -50,7 +47,7 @@ void node_destroy(Node* n) {
 }
 
 int node_getId(const Node * n) {
-    // Suponemos id >= 0
+    /* Suponemos id >= 0 */
     if(n == NULL) return -1;
     return n->id;
 }
@@ -66,7 +63,7 @@ int node_getConnect(const Node * n) {
 }
 
 Node * node_setId(Node * n, const int id) {
-    // Suponemos id >= 0
+    /* Suponemos id >= 0 */
     if(n == NULL || id < 0) return NULL;
     n->id = id;
     return n;
@@ -74,13 +71,8 @@ Node * node_setId(Node * n, const int id) {
 
 Node * node_setName(Node * n, const char* name) {
     if(n == NULL || name == NULL) return NULL;
-    
-    strncpy(n->name, name, MAX_NAME);
-    
-    // Para asegurar terminacion correcta
-    if(n->name[MAX_NAME-1] != '\0') {
-        n->name[MAX_NAME-1] = '\0';
-    }
+    /* strncpy copia src en dest hasta n, el resto son '/0' */
+    strncpy(n->name, name, MAX_NAME-1);
     return n;
 }
 
@@ -92,7 +84,7 @@ Node * node_setConnect(Node * n, const int cn) {
 
 int node_cmp (const Node * n1, const Node * n2) {
     if(n1 == NULL || n2 == NULL) return 0;
-    // Id's >= 0 para todo nodo, luego podemos restar para comparar
+    /* Id's >= 0 para todo nodo, luego podemos restar para comparar */
     return (node_getId(n1) - node_getId(n2));
 }
 
@@ -101,7 +93,7 @@ Node * node_copy(const Node * src) {
     Node *n = NULL;
     
     n = (Node *)malloc(sizeof(Node));
-    // En caso de error se imprimira por stderr
+    /* En caso de error se imprimira por stderr */
     if(n == NULL) {
         fprintf(stderr, "Valor de errno: %d\n", errno);
         fprintf(stderr, "Mensaje de errno: %s\n", strerror(errno));
@@ -132,7 +124,7 @@ int node_print(FILE *pf, const Node * n) {
     int nbytes = 0;
     nbytes = fprintf(pf, "[%d, %s, %d]", node_getId(n), node_getName(n), node_getConnect(n));
     
-    // Comprobar error al imprimir en pf
+    /* Comprobar error al imprimir en pf */
     if(ferror(pf)) {
         fprintf(stderr, "Error al imprimir\n");
         return -1;
