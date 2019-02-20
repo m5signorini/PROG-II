@@ -57,12 +57,36 @@ int main(int argc, char** argv) {
     
     /* INSERCIONES */
     fprintf(stdout, "Insertando nodo 1...");
+    /* Error de flujo */
+    if(ferror(stdout)) {
+        fprintf(stderr, "Error al imprimir por stdout\n");
+        main_destroy(EXIT_FAILURE, n1, n2, g);
+    }
+    
     flag = graph_insertNode(g, n1);
+    
     fprintf(stdout, "resultado...%d\n", flag);
+    /* Error de flujo */
+    if(ferror(stdout)) {
+        fprintf(stderr, "Error al imprimir por stdout\n");
+        main_destroy(EXIT_FAILURE, n1, n2, g);
+    }
     
     fprintf(stdout, "Insertando nodo 2...");
+    /* Error de flujo */
+    if(ferror(stdout)) {
+        fprintf(stderr, "Error al imprimir por stdout\n");
+        main_destroy(EXIT_FAILURE, n1, n2, g);
+    }
+    
     flag = graph_insertNode(g, n2);
+    
     fprintf(stdout, "resultado...%d\n", flag);
+    /* Error de flujo */
+    if(ferror(stdout)) {
+        fprintf(stderr, "Error al imprimir por stdout\n");
+        main_destroy(EXIT_FAILURE, n1, n2, g);
+    }
     
     /* EDGE */
     id1 = node_getId(n1);
@@ -71,34 +95,80 @@ int main(int argc, char** argv) {
     if(id2 == -1) main_destroy(EXIT_FAILURE, n1, n2, g);
     
     fprintf(stdout, "Insertando edge: nodo 2 ---> nodo 1\n");
+    /* Error de flujo */
+    if(ferror(stdout)) {
+        fprintf(stderr, "Error al imprimir por stdout\n");
+        main_destroy(EXIT_FAILURE, n1, n2, g);
+    }
+    
     flag = graph_insertEdge(g, id2, id1);
     if(flag == ERROR) main_destroy(EXIT_FAILURE, n1, n2, g);
     
     
     /* CHECK CONNECTION */
     fprintf(stdout, "Conectados nodo 1 y nodo 2? ");
+    /* Error de flujo */
+    if(ferror(stdout)) {
+        fprintf(stderr, "Error al imprimir por stdout\n");
+        main_destroy(EXIT_FAILURE, n1, n2, g);
+    }
+    
     if(graph_areConnected(g, id1, id2) == TRUE) {
         fprintf(stdout, "Si\n");
     }
     else {
         fprintf(stdout, "No\n");
     }
+    /* Error de flujo */
+    if(ferror(stdout)) {
+        fprintf(stderr, "Error al imprimir por stdout\n");
+        main_destroy(EXIT_FAILURE, n1, n2, g);
+    }
     
     fprintf(stdout, "Conectados nodo 2 y nodo 1? ");
+    /* Error de flujo */
+    if(ferror(stdout)) {
+        fprintf(stderr, "Error al imprimir por stdout\n");
+        main_destroy(EXIT_FAILURE, n1, n2, g);
+    }
+    
     if(graph_areConnected(g, id2, id1) == TRUE) {
         fprintf(stdout, "Si\n");
     }
     else {
         fprintf(stdout, "No\n");
     }
+    /* Error de flujo */
+    if(ferror(stdout)) {
+        fprintf(stderr, "Error al imprimir por stdout\n");
+        main_destroy(EXIT_FAILURE, n1, n2, g);
+    }
     
     /* INSERTAR NODO 2 */
     fprintf(stdout, "Insertando nodo 2...");
+    /* Error de flujo */
+    if(ferror(stdout)) {
+        fprintf(stderr, "Error al imprimir por stdout\n");
+        main_destroy(EXIT_FAILURE, n1, n2, g);
+    }
+    
     flag = graph_insertNode(g, n2);
+    
     fprintf(stdout, "resultado...%d\n", flag);
+    /* Error de flujo */
+    if(ferror(stdout)) {
+        fprintf(stderr, "Error al imprimir por stdout\n");
+        main_destroy(EXIT_FAILURE, n1, n2, g);
+    }
     
     /* PRINT GRAFO */
     fprintf(stdout, "GRAFO\n");
+    /* Error de flujo */
+    if(ferror(stdout)) {
+        fprintf(stderr, "Error al imprimir por stdout\n");
+        main_destroy(EXIT_FAILURE, n1, n2, g);
+    }
+    
     aux = graph_print(stdout, g);
     if(aux == -1) main_destroy(EXIT_FAILURE, n1, n2, g);
     
