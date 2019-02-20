@@ -12,7 +12,7 @@ La manera de jerarquizar los archivos será la siguiente:
       - Descripción: Detallará los objetivos de la práctica y se añadirán posibles links
   3) Carpetas de ejercicios
       - Cada práctica consta de varios ejercicios a resolver secuencialmente, aquí se ordenarán.
-      - En principio se usará un directorio de nombre "Mirror" con todos los archivos juntos. luego se separan.
+      - En principio se usará un directorio de nombre "Mirror" con todos los archivos juntos, luego se separarán.
       - Nombre: Px_Ey  
                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; x: Número de la práctica  
                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; y: Número del ejercicio  
