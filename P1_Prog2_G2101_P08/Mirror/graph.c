@@ -97,6 +97,7 @@ Graph * graph_ini() {
         /* Ponemos punteros de los nodos a NULL */
         pg->nodes[i] = NULL;
         /* Ponemos la matriz de adyacencia a FALSE */
+        /* OPCIONAL (Puede que haya que eliminar) */
         for(j = 0; j < MAX_NODES; j++) {
             pg->connections[i][j] = FALSE;
         }
