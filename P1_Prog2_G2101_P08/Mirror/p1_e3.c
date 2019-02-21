@@ -6,11 +6,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <errno.h>
 
 #include "graph.h"
-
-extern int errno;
 
 void main_destroy(int salida, Node *n1, Node *n2, Graph *pg);
 
