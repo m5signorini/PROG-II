@@ -4,7 +4,6 @@
 
 #################################
 #! /bin/bash
-p1_e1 clear
 
 gcc -g -Wall -pedantic -ansi -std=c99 -c node.c
 gcc -g -Wall -pedantic -ansi -std=c99 -c p1_e1.c
