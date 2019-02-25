@@ -72,7 +72,6 @@ int main(int argc, char** argv) {
     while(stack_isEmpty(pila) == FALSE) {
         //Pop and catch
         element = stack_pop(pila);
-        if(element == NULL) main_exit(EXIT_FAILURE, pila, element, n1);
         
         //Print and free
         EleStack_print(stdout, element);
