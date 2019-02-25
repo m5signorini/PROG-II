@@ -96,11 +96,14 @@ Graph * graph_ini() {
     for(i = 0; i < MAX_NODES; i++) {
         /* Ponemos punteros de los nodos a NULL */
         pg->nodes[i] = NULL;
-        /* Ponemos la matriz de adyacencia a FALSE */
-        /* OPCIONAL (Puede que haya que eliminar) */
+        /* 
+        No ponemos la matriz de adyacencia a FALSE
+        En vez, al añadir un nodo ponemos a false su fila y columna
+        O(t^2) -> O(n^2)
         for(j = 0; j < MAX_NODES; j++) {
             pg->connections[i][j] = FALSE;
         }
+        */
     }
     pg->num_edges = 0;
     pg->num_nodes = 0;
@@ -146,6 +149,11 @@ Status graph_insertNode(Graph * g, const Node* n) {
     
     g->nodes[numNodes] = ncpy;
     g->num_nodes ++;
+    for(index = 0; index < numNodes; index++) {
+        g->connections[index][numNodes] = FALSE;
+        g->connections[numNodes][index] = FALSE;
+    }
+    g->connections[numNodes][numNodes] = FALSE;
     
     return OK;
 }
@@ -340,12 +348,12 @@ int graph_getNumberOfConnectionsFrom(const Graph * g, const int fromId) {
 
 /* Devuelve la dirección de un array con los id de todos los nodos del grafo.
  * Supongo que los conectados al nodo fromId (SALIENTES)
- * Reserva memoria para el array. */
+ * Reserva memoria para el array. 
+ */
 int* graph_getConnectionsFrom(const Graph * g, const int fromId) {
     if(g == NULL || fromId < 0) return NULL;
     
     int index, i, numConnect;
-    int * idArray = NULL;
     int * indexArray = NULL;
     
     /* Encontramos indice del nodo fromId */
@@ -360,34 +368,21 @@ int* graph_getConnectionsFrom(const Graph * g, const int fromId) {
     indexArray = graph_getConectionsIndex(g, index);
     if(indexArray == NULL) return NULL;
     
-    /* Reservo memoria para el array de id's */
-    idArray = (int *)malloc(sizeof(int)*numConnect);
-    if(idArray == NULL) {
-        free(indexArray);
-        indexArray = NULL;
-        fprintf(stderr, "Valor de errno: %d\n", errno);
-        fprintf(stderr, "Mensaje de errno: %s\n", strerror(errno));
-        return NULL;
-    }
-    
-    /* Rellenamos el idArray */
+    /* Rellenamos el indexArray con ID's */
     for(i = 0; i < numConnect; i++) {
-        idArray[i] = node_getId(g->nodes[indexArray[i]]);
-        if(idArray[i] == -1) {
+        indexArray[i] = node_getId(g->nodes[indexArray[i]]);
+        if(indexArray[i] == -1) {
             break;
         }
     }
     
-    free(indexArray);
-    indexArray = NULL;
-    
     if(i != numConnect) {
-        free(idArray);
-        idArray = NULL;
+        free(indexArray);
+        indexArray = NULL;
         return NULL;
     }
     
-    return idArray;
+    return indexArray;
 }
 
 int graph_print(FILE *pf, const Graph * g) {
