@@ -100,18 +100,9 @@ Node * node_copy(const Node * src) {
         return NULL;
     }
     
-    if(node_setId(n, node_getId(src)) == NULL) {
-        node_destroy(n);
-        return NULL;
-    }
-    if(node_setConnect(n, node_getConnect(src)) == NULL){
-        node_destroy(n);
-        return NULL;
-    }
-    if(node_setName(n, node_getName(src)) == NULL) {
-        node_destroy(n);
-        return NULL;
-    }
+    node_setId(n, node_getId(src));
+    node_setConnect(n, node_getConnect(src));
+    node_setName(n, node_getName(src));
     return n;
 }
 
