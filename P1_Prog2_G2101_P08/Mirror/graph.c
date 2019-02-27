@@ -84,7 +84,7 @@ int* graph_getConectionsIndex(const Graph * g, int index) {
 
 Graph * graph_ini() {
     Graph * pg = NULL;
-    int i, j;
+    int i;
     
     pg = (Graph *)malloc(sizeof(Graph));
     if(pg == NULL) {
