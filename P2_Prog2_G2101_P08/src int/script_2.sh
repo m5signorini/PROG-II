@@ -7,4 +7,4 @@ gcc -g -Wall -ansi -std=c99 -pedantic -o p2_e2 stack_elestack.o elestack-int.o p
 
 rm -rf *.o
 
-valgrind --leak-check=full ./p2_e2 3
+valgrind --leak-check=full ./p2_e2 11

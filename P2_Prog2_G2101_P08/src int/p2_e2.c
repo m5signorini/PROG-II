@@ -13,7 +13,7 @@
  * 
  */
 
-void main_exit(int mess, Stack *st, EleStack * ele, int* n);
+void main_exit(int mess, Stack *st, EleStack * ele);
 double pila_media(Stack *st);
 
 int main(int argc, char** argv) {
@@ -30,10 +30,7 @@ int main(int argc, char** argv) {
     if(pila == NULL) return EXIT_FAILURE;
     
     element = EleStack_ini();
-    if(element == NULL) main_exit(EXIT_FAILURE, pila, element, pe);
-    
-    pe = (int*)malloc(sizeof(int));
-    if(pe == NULL) main_exit(EXIT_FAILURE, pila, element, pe);
+    if(element == NULL) main_exit(EXIT_FAILURE, pila, element);
     
     n = atoi(argv[1]);
     
@@ -41,16 +38,16 @@ int main(int argc, char** argv) {
     
     for(aux = 0; aux <= n; aux++) {
         // set pe a aux
-        *pe = aux;
+        pe = &aux;
         
         // set info a pe
         flag = EleStack_setInfo(element, (void*)pe);
-        if(flag == ERROR) main_exit(EXIT_FAILURE, pila, element, pe);
+        if(flag == ERROR) main_exit(EXIT_FAILURE, pila, element);
         
         // push element a pila
         // si la pila se llena se devuelve error y se finaliza
         flag = stack_push(pila, element);
-        if(flag == ERROR) main_exit(EXIT_FAILURE, pila, element, pe);
+        if(flag == ERROR) main_exit(EXIT_FAILURE, pila, element);
     }
     
     //FREE ELEMENT
@@ -60,7 +57,7 @@ int main(int argc, char** argv) {
     //PRINT ANTES DE LA FUNCION
     fprintf(stdout, "Pila antes de la llamada a la función:\n");
     aux = stack_print(stdout, pila);
-    if(aux == -1) main_exit(EXIT_FAILURE, pila, element, pe);
+    if(aux == -1) main_exit(EXIT_FAILURE, pila, element);
     
     //CALCULAR MEDIA
     media = pila_media(pila);
@@ -69,21 +66,19 @@ int main(int argc, char** argv) {
     //PRINT DESPUES DE LA FUNCION
     fprintf(stdout, "Pila después de la llamada a la función:\n");
     aux = stack_print(stdout, pila);
-    if(aux == -1) main_exit(EXIT_FAILURE, pila, element, pe);
+    if(aux == -1) main_exit(EXIT_FAILURE, pila, element);
     /*
     */
     
-    main_exit(EXIT_SUCCESS, pila, element, pe);
+    main_exit(EXIT_SUCCESS, pila, element);
     return EXIT_FAILURE;
 }
 
-void main_exit(int mess, Stack * st, EleStack * ele, int* n) {
+void main_exit(int mess, Stack * st, EleStack * ele) {
     stack_destroy(st);
     st = NULL;
     EleStack_destroy(ele);
     ele = NULL;
-    free(n);
-    n = NULL;
     
     exit(mess);
 }
@@ -136,6 +131,7 @@ double pila_media(Stack *st) {
         EleStack_destroy(info);
     }
     stack_destroy(paux);
+    if(tam == 0) return 0;
     retorno = retorno / tam;
     
     return retorno;
