@@ -63,8 +63,8 @@ int node_getConnect(const Node * n) {
 }
 
 Node * node_setId(Node * n, const int id) {
-    /* Suponemos id >= 0 */
-    if(n == NULL || id < 0) return NULL;
+    /* Suponemos id >= -1 */
+    if(n == NULL || id < -1) return NULL;
     n->id = id;
     return n;
 }
