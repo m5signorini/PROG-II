@@ -1,8 +1,14 @@
 /*
- * File:   p2_e3.c
- * Author: e400156
+ * Nombre: p2_e3.c
  *
- * Created on 5 de marzo de 2019, 13:14
+ * Descripción: Ejercicio 3
+ *
+ * Autor: Martín Sánchez Signorini
+ *
+ * Modulos propios que necesita:
+ * - stack_fp
+ * - eleint
+ * - node
  */
 
 #include <stdio.h>
@@ -29,6 +35,8 @@ int fp_int_print(FILE *pf, const void * n);
 
 
 int main(int argc, char** argv) {
+    // Checkear si el numero de argumentos es suficiente
+    if(argc < 2) return EXIT_FAILURE;
     //--------------------//
     // EJERCICIO 1: NODOS //
     //--------------------//

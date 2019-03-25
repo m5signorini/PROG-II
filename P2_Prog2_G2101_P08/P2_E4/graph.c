@@ -1,8 +1,14 @@
 /*
- * ESTRUCTURA GRAFO
- * Version: 2.0
- * Nombre: Martín Sánchez
+ * Nombre: graph.c
  *
+ * Descripción: Estructura Grafo (conjunto de nodos) adaptada al ejercicio 4
+ *
+ * Autor: Martín Sánchez Signorini
+ *
+ * Modulos propios que necesita:
+ * - stack_fp
+ * - eleint
+ * - node
  */
 
 #include <stdio.h>
@@ -43,6 +49,7 @@ struct _Graph {
 int find_node_index (const Graph * g, int nId1);
 int* graph_getConectionsIndex (const Graph * g, int index);
 
+void aux_dfs_free(Stack *st, int* pindex, int* conexs);
 void aux_int_destroy(void* n);
 void * aux_int_copy(const void* n);
 int aux_int_print(FILE *pf, const void* n);
@@ -494,7 +501,7 @@ if ( graph_insertNode (g, n) == ERROR) break;
 /* BUSQUEDA EN PROFUNDIDAD */
 /***************************/
 
-Node *graph_findDeepSearch (Graph *g, int from_id, int to_id) {
+Node *graph_findDeepSearch (Graph *g, const int from_id, const int to_id) {
     if(g == NULL || from_id < 0 || to_id < 0) return NULL;
 
     Stack *st = NULL;
@@ -538,9 +545,7 @@ Node *graph_findDeepSearch (Graph *g, int from_id, int to_id) {
             // Obtenemos indices (nodos) conectados a nu
             conexs = graph_getConectionsIndex(g, index);
             if(conexs == NULL) {
-                stack_destroy(st);
-                int_free(pindex);
-                printf("ERROR 1");
+                aux_dfs_free(st, pindex, conexs);
                 return NULL;
             }
             tam = graph_getNumberOfConnectionsFrom(g, node_getId(nu));
@@ -555,9 +560,7 @@ Node *graph_findDeepSearch (Graph *g, int from_id, int to_id) {
                     // Ponemos antId de nw al indice de nu
                     node_setAntId(nw, index);
                     // SALIDA
-                    stack_destroy(st);
-                    int_free(pindex);
-                    free(conexs);
+                    aux_dfs_free(st, pindex, conexs);
                     return node_copy(nw);
                 }
 
@@ -567,10 +570,7 @@ Node *graph_findDeepSearch (Graph *g, int from_id, int to_id) {
                     node_setAntId(nw, index);
                     // PUSH
                     if(stack_push(st, conexs + i) == ERROR) {
-                        stack_destroy(st);
-                        int_free(pindex);
-                        free(conexs);
-                        printf("ERROR 2");
+                        aux_dfs_free(st, pindex, conexs);
                         return NULL;
                     }
                 }
@@ -585,7 +585,6 @@ Node *graph_findDeepSearch (Graph *g, int from_id, int to_id) {
     }
     // Liberar la Pila
     stack_destroy(st);
-    printf("ERROR 3");
     return NULL;
 }
 
@@ -596,13 +595,12 @@ Node *graph_findDeepSearch (Graph *g, int from_id, int to_id) {
 // Se mueve por los indices guardados en antId hasta llegar a un antId < 0
 // esta funcion no se puede implementar en el main si lo que vamos a aprovechar
 // es que acceder a los indices guardados es más eficiente
-int graph_print_camino(FILE *pf, Graph *g, Node * pn) {
+int graph_print_camino(FILE *pf, const Graph *g, const Node * pn) {
 	if(pf == NULL || pn == NULL || g == NULL) return -1;
 
 	Node * pnext = NULL;
 	int ind;
   int nbytes = 0;
-
 
   // Capturamos el antId de pn
 	ind = node_getAntId(pn);
@@ -612,10 +610,10 @@ int graph_print_camino(FILE *pf, Graph *g, Node * pn) {
     // Si existe antecesor tras DFS, antId es su indice
   	pnext = g->nodes[ind];
   	nbytes = graph_print_camino(pf, g, pnext);
-    nbytes += fprintf(pf, "\n->");
+    nbytes += fprintf(pf, "\n");
 	}
 
-  nbytes += fprintf(pf, "[%s]", node_getName(pn));
+  nbytes += node_print(pf, pn);
   return nbytes;
 }
 
@@ -624,6 +622,12 @@ int graph_print_camino(FILE *pf, Graph *g, Node * pn) {
 /************/
 /*AUXILIARES*/
 /************/
+
+void aux_dfs_free(Stack *st, int* pindex, int* conexs) {
+    stack_destroy(st);
+    int_free(pindex);
+    free(conexs);
+}
 
 
 void aux_int_destroy(void* n) {

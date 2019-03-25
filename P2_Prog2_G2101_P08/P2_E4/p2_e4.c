@@ -1,8 +1,14 @@
 /*
- * File:   p2_e4.c
- * Author: Martín Sánchez
+ * Nombre: p2_e4.c
  *
- * BUSQUEDA EN PROFUNDIDAD
+ * Descripción: Ejercicio 4 - Busqueda en profundidad
+ *
+ * Autor: Martín Sánchez Signorini
+ *
+ * Modulos propios que necesita:
+ * - stack_fp
+ * - graph
+ * - node
  */
 
 #include <stdio.h>
@@ -16,9 +22,11 @@
  */
 
 
-void main_exit(int, Graph*, Node*);
+void main_exit(int, Graph*, Node*, FILE*);
 
 int main(int argc, char** argv) {
+    // Checkear si el numero de argumentos es suficiente
+    if(argc < 4) return EXIT_FAILURE;
 
     Node * n1 = NULL;
     // Nodos aux para leer su nombre
@@ -37,12 +45,9 @@ int main(int argc, char** argv) {
     // Abrir FILE
     // f = fopen("g1.txt", "r");
     f = fopen(argv[1], "r");
-    if(f == NULL) main_exit(EXIT_FAILURE, g, n1);
+    if(f == NULL) main_exit(EXIT_FAILURE, g, n1, f);
 
-    if(graph_readFromFile(f, g) == ERROR) {
-        fclose(f);
-        main_exit(EXIT_FAILURE, g, n1);
-    }
+    if(graph_readFromFile(f, g) == ERROR) main_exit(EXIT_FAILURE, g, n1, f);
 
     // Asignar from y to
     from = atoi(argv[2]);
@@ -50,10 +55,10 @@ int main(int argc, char** argv) {
 
     // Obtener nodos origen y destino para imprimir sus nombres
     nOrig = graph_getNode(g, from);
-    if(nOrig == NULL) main_exit(EXIT_FAILURE, g, n1);
+    if(nOrig == NULL) main_exit(EXIT_FAILURE, g, nOrig, f);
 
     nDest = graph_getNode(g, to);
-    if(nDest == NULL) main_exit(EXIT_FAILURE, g, nOrig);
+    if(nDest == NULL) main_exit(EXIT_FAILURE, g, nOrig, f);
 
     n1 = graph_findDeepSearch (g, from, to);
     if(n1 == NULL) {
@@ -69,16 +74,15 @@ int main(int argc, char** argv) {
     node_destroy(nOrig);
     node_destroy(nDest);
 
-    fclose(f);
-
-    main_exit(EXIT_SUCCESS, g, n1);
+    main_exit(EXIT_SUCCESS, g, n1, f);
 
     return (EXIT_SUCCESS);
 }
 
 
-void main_exit(int mens, Graph* st, Node* n) {
-    graph_destroy(st);
+void main_exit(int mens, Graph* g, Node* n, FILE * pf) {
+    graph_destroy(g);
     node_destroy(n);
+    fclose(pf);
     exit(mens);
 }

@@ -1,8 +1,10 @@
 /*
- * 
- * ESTRUCTURA NODE
- * Nombre: Martín Sánchez
- * 
+ * Nombre: node.c
+ *
+ * Descripción: Estructura Nodo
+ *
+ * Autor: Martín Sánchez Signorini
+ *
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,7 +26,7 @@ struct _Node {
 
 Node * node_ini() {
     Node *n = NULL;
-    
+
     n = (Node *)malloc(sizeof(Node));
     /* En caso de error se imprimira por stderr */
     if(n == NULL) {
@@ -32,11 +34,11 @@ Node * node_ini() {
         fprintf(stderr, "Mensaje de errno: %s\n", strerror(errno));
         return NULL;
     }
-    
+
     node_setId(n, -1);
     node_setConnect(n, 0);
     node_setName(n, "");
-    
+
     return n;
 }
 
@@ -91,7 +93,7 @@ int node_cmp (const Node * n1, const Node * n2) {
 Node * node_copy(const Node * src) {
     if(src == NULL) return NULL;
     Node *n = NULL;
-    
+
     n = (Node *)malloc(sizeof(Node));
     /* En caso de error se imprimira por stderr */
     if(n == NULL) {
@@ -99,7 +101,7 @@ Node * node_copy(const Node * src) {
         fprintf(stderr, "Mensaje de errno: %s\n", strerror(errno));
         return NULL;
     }
-    
+
     node_setId(n, node_getId(src));
     node_setConnect(n, node_getConnect(src));
     node_setName(n, node_getName(src));
@@ -111,10 +113,10 @@ int node_print(FILE *pf, const Node * n) {
         fprintf(stderr, "Error al pasar argumentos NULL\n");
         return -1;
     }
-    
+
     int nbytes = 0;
     nbytes = fprintf(pf, "[%d, %s, %d]", node_getId(n), node_getName(n), node_getConnect(n));
-    
+
     /* Comprobar error al imprimir en pf */
     if(ferror(pf)) {
         fprintf(stderr, "Error al imprimir\n");

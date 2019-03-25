@@ -1,7 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Nombre: stack_fp.c
+ *
+ * Descripción: Estructura Stack
+ *
+ * Autor: Martín Sánchez Signorini
+ *
  */
 
 #include <stdio.h>
@@ -27,22 +30,22 @@ struct _Stack {
 
 Stack *stack_ini (P_stack_ele_destroy fd, P_stack_ele_copy fc, P_stack_ele_print fp) {
     if(fd == NULL || fc == NULL || fp == NULL) return NULL;
-    
+
     Stack *st = NULL;
     int i;
-    
+
     st = (Stack *)malloc(sizeof(Stack));
     if(st == NULL) {
         fprintf(stderr, "Valor del error: %d\n", errno);
         fprintf(stderr, "Mensaje de error: %s\n", strerror(errno));
         return NULL;
     }
-    
+
     st->top = EMPTY_STACK;
     st->pf_copy = fc;
     st->pf_destroy = fd;
     st->pf_print = fp;
-    
+
     for(i = 0; i < MAXSTACK; i++) {
         st->item[i] = NULL;
     }
@@ -52,12 +55,12 @@ Stack *stack_ini (P_stack_ele_destroy fd, P_stack_ele_copy fc, P_stack_ele_print
 
 void stack_destroy(Stack* st) {
     if(st == NULL) return;
-    
+
     while(st->top > EMPTY_STACK) {
         st->pf_destroy(st->item[st->top]);
         st->top--;
     }
-    
+
     free(st);
     return;
 }
@@ -66,12 +69,12 @@ void stack_destroy(Stack* st) {
 Status stack_push(Stack *st, const void *ele) {
     if(st == NULL || ele == NULL) return ERROR;
     if(stack_isFull(st) == TRUE) return ERROR;
-    
+
     void * ele_cpy = NULL;
-    
+
     ele_cpy = st->pf_copy(ele);
     if(ele_cpy == NULL) return ERROR;
-    
+
     st->top++;
     st->item[st->top] = ele_cpy;
     return OK;
@@ -80,13 +83,13 @@ Status stack_push(Stack *st, const void *ele) {
 
 void * stack_pop(Stack *st) {
     if(st == NULL) return NULL;
-    
+
     void * ele_pop = NULL;
-    
+
     ele_pop = st->item[st->top];
     st->item[st->top] = NULL;
     st->top--;
-    
+
     return ele_pop;
 }
 
@@ -108,23 +111,23 @@ Bool stack_isFull(const Stack *st) {
 
 int stack_print(FILE*pf, const Stack*st) {
     if(pf == NULL || st == NULL) return -1;
-    
+
     int nbytes = 0, aux;
     int i = st->top;
-    
+
     while(i != EMPTY_STACK) {
         aux = st->pf_print(pf, st->item[i]);
         if(aux == -1) return -1;
-        
+
         nbytes += aux;
         nbytes += fprintf(pf, "\n");
         if(ferror(pf)) {
             fprintf(stderr, "Error al imprimir\n");
             return -1;
         }
-        
+
         i--;
     }
-    
+
     return nbytes;
 }

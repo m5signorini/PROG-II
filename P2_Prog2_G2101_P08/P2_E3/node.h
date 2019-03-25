@@ -1,8 +1,10 @@
-/* 
- * File:   node.h
- * Author: e400156
+/*
+ * Nombre: node.h
  *
- * Created on 5 de febrero de 2019, 13:38
+ * Descripción: TAD Nodo
+ *
+ * Autor: Martín Sánchez Signorini
+ *
  */
 
 #ifndef NODE_H_
@@ -57,5 +59,3 @@ Node * node_copy(const Node * src);
 int node_print(FILE *pf, const Node * n);
 
 #endif /* NODE_H_ */
-
-

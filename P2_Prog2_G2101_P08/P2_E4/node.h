@@ -1,9 +1,10 @@
-/* 
- * File:   node.h
- * 
- * MODIFIED FOR P2_E4
+/*
+ * Nombre: node.h
  *
- * 
+ * Descripción: TAD Nodo adaptada al ejercicio 4
+ *
+ * Autor: Martín Sánchez Signorini
+ *
  */
 
 #ifndef NODE_H_
@@ -81,5 +82,3 @@ Node * node_setAntId(Node *n, const int ant_id);
 
 
 #endif /* NODE_H_ */
-
-

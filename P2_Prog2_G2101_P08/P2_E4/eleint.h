@@ -1,14 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   eleint.h
- * Author: e400156
+ * Nombre: eleint.h
  *
- * Created on 5 de marzo de 2019, 14:14
+ * Descripción: TAD entero
+ *
+ * Autor: Martín Sánchez Signorini
+ *
  */
 
 #ifndef ELEINT_H
@@ -25,4 +21,3 @@ void int_free(int * n);
 int int_print(FILE *pf, const int *pi);
 
 #endif /* ELEINT_H */
-

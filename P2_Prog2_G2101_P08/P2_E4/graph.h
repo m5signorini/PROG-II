@@ -76,13 +76,13 @@ Status graph_readFromFile (FILE *fin, Graph *g);
 
 /*Busqueda en profundidad
   Dado un grafo un id origen y uno destino, se realiza una búsqueda en profundidad
-  a lo largo del nodo, si existe un camino devolverá el último nodo, si no existe
-  u ocurrio un error devolvera NULL
+  a lo largo del grafo, si existe un camino hasta el destino devolverá el último nodo, si no existe
+  o ha ocurrido un error devolvera NULL
 */
-Node *graph_findDeepSearch (Graph *g, int from_id, int to_id);
+Node *graph_findDeepSearch (Graph *g, const int from_id, const int to_id);
 
 /*Tras llamar a graph_findDeepSearch esta funcion imprime el camino encontrado
-a partir de un nodo, devuelve el número de caracteres impresos*/
-int graph_print_camino(FILE *pf, Graph *g, Node * pn);
+a partir de un nodo pn del grafo g, devuelve el número de caracteres impresos*/
+int graph_print_camino(FILE *pf, const Graph *g, const Node * pn);
 
 #endif /* GRAPH_H */

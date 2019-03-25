@@ -1,10 +1,10 @@
 /*
- * 
- * ESTRUCTURA NODE
- * Nombre: Martín Sánchez
- * 
- * MODIFIED FOR P2_E4
- * 
+ * Nombre: node.c
+ *
+ * Descripción: Estructura Nodo adaptada al ejercicio 4
+ *
+ * Autor: Martín Sánchez Signorini
+ *
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,7 +21,7 @@ struct _Node {
     char name[MAX_NAME];
     int id;
     int nConnect;
-    
+
     Label etq;
     int ant_id;
 };
@@ -29,7 +29,7 @@ struct _Node {
 
 Node * node_ini() {
     Node *n = NULL;
-    
+
     n = (Node *)malloc(sizeof(Node));
     /* En caso de error se imprimira por stderr */
     if(n == NULL) {
@@ -37,16 +37,16 @@ Node * node_ini() {
         fprintf(stderr, "Mensaje de errno: %s\n", strerror(errno));
         return NULL;
     }
-    
+
     node_setId(n, -1);
     node_setConnect(n, 0);
     node_setName(n, "");
-    
+
     /******/
-    
+
     node_setEtq(n, BLANCO);
     node_setAntId(n, -1);
-    
+
     return n;
 }
 
@@ -101,7 +101,7 @@ int node_cmp (const Node * n1, const Node * n2) {
 Node * node_copy(const Node * src) {
     if(src == NULL) return NULL;
     Node *n = NULL;
-    
+
     n = (Node *)malloc(sizeof(Node));
     /* En caso de error se imprimira por stderr */
     if(n == NULL) {
@@ -109,11 +109,11 @@ Node * node_copy(const Node * src) {
         fprintf(stderr, "Mensaje de errno: %s\n", strerror(errno));
         return NULL;
     }
-    
+
     node_setId(n, node_getId(src));
     node_setConnect(n, node_getConnect(src));
     node_setName(n, node_getName(src));
-    
+
     node_setEtq(n, node_getEtq(src));
     node_setAntId(n, node_getAntId(src));
     return n;
@@ -124,10 +124,10 @@ int node_print(FILE *pf, const Node * n) {
         fprintf(stderr, "Error al pasar argumentos NULL\n");
         return -1;
     }
-    
+
     int nbytes = 0;
     nbytes = fprintf(pf, "[%d, %s, %d]", node_getId(n), node_getName(n), node_getConnect(n));
-    
+
     /* Comprobar error al imprimir en pf */
     if(ferror(pf)) {
         fprintf(stderr, "Error al imprimir\n");
@@ -147,7 +147,7 @@ Label node_getEtq(const Node *n) {
 Node * node_setEtq(Node *n, const Label etq) {
     if(n == NULL) return NULL;
     if(etq != BLANCO && etq != NEGRO) return NULL;
-    
+
     n->etq = etq;
     return n;
 }
