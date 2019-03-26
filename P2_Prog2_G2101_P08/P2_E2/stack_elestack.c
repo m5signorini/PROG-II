@@ -31,7 +31,6 @@ struct _Stack {
     int top;
 };
 
-
 Stack * stack_ini() {
     Stack * st = NULL;
     int i;
@@ -64,7 +63,6 @@ void stack_destroy(Stack *st) {
     free(st);
     return;
 }
-
 
 Status stack_push(Stack *st, const EleStack *ele) {
     if(st == NULL || ele == NULL) return ERROR;
