@@ -13,9 +13,6 @@
 #include <stdlib.h>
 
 #include "stack_elestack.h"
-/*
- *
- */
 
 void main_exit(int mess, Stack *st, EleStack * ele);
 double pila_media(Stack *st);
@@ -87,7 +84,6 @@ void main_exit(int mess, Stack * st, EleStack * ele) {
 
     exit(mess);
 }
-
 
 double pila_media(Stack *st) {
     if(st == NULL) return 0;
