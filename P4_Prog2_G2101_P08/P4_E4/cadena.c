@@ -17,22 +17,16 @@
 
 extern int errno;
 
-/*
-  La estructura Cadena consiste en un tamaño dinamico y su campo de array
-  dinamico de caracteres
-*/
-
 struct _Cadena {
   char * str;
-  int tam;
 };
 
 
 Cadena * cadena_ini(const char * str) {
   if(str == NULL) return NULL;
   int tam;
-  char * strnew;
-  Cadena * cad;
+  char * strnew = NULL;
+  Cadena * cad = NULL;
 
   tam = strlen(str) + 1;
   if(tam < 0) return NULL;
@@ -54,7 +48,6 @@ Cadena * cadena_ini(const char * str) {
 
   strncpy(strnew, str, tam);
 
-  cad->tam = tam;
   cad->str = strnew;
 
   return cad;
@@ -90,25 +83,15 @@ int cadena_print(FILE *pf, const Cadena *cad) {
 // str1 > str22 devuelve positivo
 // str1 = str2 devuelve 0
 int cadena_cmp(const Cadena *cad1, const Cadena *cad2) {
-  if(cad1 == NULL) {
-    if(cad2 == NULL) {
-      return 0;
-    }
+  if(cad1 == NULL && cad2 == NULL) {
+    return 0;
+  }
+  else if(cad1 == NULL && cad2 != NULL) {
     return -1;
   }
-  int i;
-  int min = cad1->tam;
-
-  if(cad2->tam < min) min = cad2->tam;
-
-  for(i = 0; i < min; i++) {
-    if(cad1->str[i] < cad2->str[i]) {
-      return -1;
-    }
-    else if(cad2->str[i] < cad1->str[i]) {
-      return 1;
-    }
+  else if(cad2 == NULL && cad1 != NULL) {
+    return 1;
   }
 
-  return ((cad1->tam) - (cad2->tam));
+  return strcmp(cad1->str, cad2->str);
 }
